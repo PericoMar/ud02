@@ -7,9 +7,11 @@
 </head>
 <body>
     <?php
+        //Recogemos el pais y el nombre del usuario desde la URL por el metodo GET
         $pais = $_GET["pais"];
         $nombre = $_GET["nombre"];
         echo "<h1>!" . $pais . "!</h1>";
+        //Cargamos el array de las ciudades
         $paises_europeos = array(
             "España" => array("Madrid", "Barcelona", "Valencia", "Sevilla", "Bilbao"),
             "Francia" => array("París", "Marsella", "Lyon", "Toulouse", "Niza"),
@@ -25,20 +27,26 @@
             "Noruega" => array("Oslo", "Bergen", "Trondheim", "Stavanger", "Drammen"),
             "Dinamarca" => array("Copenhague", "Aarhus", "Odense", "Aalborg", "Esbjerg")
         );
-
-    ?>
-    <form method="post" action="">
-        <label for="ciudad">Escoge una ciudad:</label>
-        <select name="ciudad" id="ciudad">
-            <?php
+        //Función para escoger la ciudad:
+        function generarSelectCiudades($paises_europeos, $pais){
+            //Se crea el select con las ciudades del pais seleccionado
+            echo "<select name='ciudad' id='ciudad'>";
             foreach ($paises_europeos[$pais] as $ciudad) {
                 echo "<option value='" . $ciudad . "'>" . $ciudad . "</option>";
             }
+            echo "</select>";
+        }
+    ?>
+    <!-- Creamos el nuevo formulario y lo cargamos de la misma manera -->
+    <form method="post" action="">
+        <label for="ciudad">Escoge una ciudad:</label>
+            <?php
+            generarSelectCiudades($paises_europeos, $pais)
             ?>
-        </select>
         <input type="submit" value="Seleccionar">
     </form>
     <?php
+        //Si el metodo de envio es POST, se recoge la ciudad seleccionada y se redirige a la pagina ciudad.php
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             $ciudad = $_POST["ciudad"];
             header("Location: ciudad.php?ciudad=" . urlencode($ciudad) . "&nombre=" . urlencode($nombre));
