@@ -35,14 +35,69 @@
         }
         echo "</select>";
     }
+    /*
+    <%-- Codigo JSP --%>
+    No hay funciones en JSP, pero se puede hacer de la siguiente manera:
+    <%
+    String[] paises_europeos = {
+        "España", "Francia", "Italia", "Alemania", "Reino Unido",
+        "Portugal", "Holanda", "Bélgica", "Suiza", "Austria",
+        "Suecia", "Noruega", "Dinamarca"
+    };
+    %>
+
+    <select name="pais" id="pais">
+    <c:forEach items="${paises_europeos}" var="pais">
+        <option value="${pais}">${pais}</option>
+    </c:forEach>
+    </select>
+    */
+
+    /*
+        --Función en lenguaje ASP--
+    <%
+    Dim paises_europeos
+    paises_europeos = Array( _
+        "España", "Francia", "Italia", "Alemania", "Reino Unido", _
+        "Portugal", "Holanda", "Bélgica", "Suiza", "Austria", _
+        "Suecia", "Noruega", "Dinamarca" _
+    )
+    %>
+
+    <select name="pais" id="pais">
+    <% For Each pais In paises_europeos %>
+        <option value="<%=pais%>"><%=pais%></option>
+    <% Next %>
+    </select>
+    */
 
     //Función para comprobar si el nombre es correcto:
     function nombreValido($nombre){
         //Se comprueba que el nombre empiece por mayuscula y que tenga entre 2 y 20 caracteres
         //devuelve true si es correcto, false si no lo es.
-        return preg_match("/^([A-Z]||[ÁÉÍÓÚ])([a-z]||[áéíóú]){2,20}$/" , $nombre);
+        return preg_match("/^[A-ZÁÉÍÓÚ][a-záéíóú]{2,20}$/" , $nombre);
     }
     
+    /* --Codigo JSP--
+    String nombre = request.getParameter("nombre");
+    String patron = "^[A-ZÁÉÍÓÚ][a-záéíóú]{2,20}$";
+    boolean nombreValido = nombre.matches(patron);
+    */
+
+    /* --Función ASP--
+    <%
+        Function nombreValido(nombre)
+        nombreValido = False
+        Set regEx = New RegExp
+        regEx.Global = True
+        regEx.IgnoreCase = True
+        regEx.Pattern = "^[A-ZÁÉÍÓÚ][a-záéíóú]{2,20}$"
+        If regEx.Test(nombre) Then
+        nombreValido = True
+        End If
+    End Function
+    %>
+    */
     ?>
 
     <form method="post" action="">
