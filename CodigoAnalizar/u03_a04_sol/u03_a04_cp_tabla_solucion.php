@@ -80,9 +80,10 @@ else{
             }
 
             /**
-             * Si hemos lanzado la excepcion a la varaible mensaje se le da el valor de getMessage
+             * Si hemos lanzado la excepcion a la variable mensaje se le da el valor de getMessage
              * del objeto excepcion lanzada antes y nos redirigimos a la pagina principal.
              */
+            
         }
         catch(Exception $excepcion) {
             $_SESSION['mensaje']=$excepcion->getMessage();
