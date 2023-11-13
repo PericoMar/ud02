@@ -18,11 +18,15 @@ class CuentaBancaria {
 
     //Representa el total de salidas que tuvo la cuenta (array).
     private $salidas;
+    //Representa el saldo actual de la cuenta.
     private $saldo;
 
     /**
      * Constructor de la clase. Recibe el usuario y el pin.
-     * Se escribe como un funcion pero con nombre __construct.
+     * Se escribe como una funcion pero con nombre __construct.
+     * 
+     * @param string $usuario
+     * @param string $pin
      */
 
     public function __construct($usuario, $pin) {
@@ -35,6 +39,8 @@ class CuentaBancaria {
 
     /**
      * Metodos de la clase
+     * 
+     * @param string $pin
      */
 
     public function cambiaPin($pin) {
@@ -44,6 +50,9 @@ class CuentaBancaria {
     /**
      * Funcion que valida si el usuario y el pin introducidos por parametros
      * equivalen a los de la instancia.
+     * 
+     * @param string $usuario
+     * @param string $pin
      */
     public function validaUsuario($usuario, $pin) {
         if($this->usuario==$usuario && $this->pin==$pin) {
@@ -57,6 +66,8 @@ class CuentaBancaria {
     /**
      * Añade la cantidad que entra (pasado por parametro) en el array
      * de entradas y actualiza el saldo. 
+     * 
+     * @param float $cantidad
      */
 
     public function ingresar($cantidad) {
@@ -68,6 +79,8 @@ class CuentaBancaria {
      * Si se dispone de la cantidad que se quiere sacar, se añade la cantidad
      * en el array de salidas y se actualiza el saldo.
      * Si no se dispone de la cantidad, se devuelve false.
+     * 
+     * @param float $cantidad
      */
 
     public function sacar($cantidad) {
@@ -100,7 +113,16 @@ class CuentaBancaria {
  * Pruebas de la clase
  */
 
+
+// Creamos una instancia de la clase CuentaBancaria.
 $cuenta=new CuentaBancaria("Fidel","1234");
+
+/**  Si metemos correctamente los parametros usuario y pin en la funcion validaUsuario.
+ * Se muestra el saldo actual, se ingresan 100€ y se sacan 80€.
+ * Como se pudo sacar de la cuenta se muestra el saldo actual y se muestran las entradas y salidas.
+ * Si no se pudo sacar de la cuenta, se muestra un mensaje de error.
+ */
+
 if($cuenta->validaUsuario("Fidel","1234")) {
     echo "usuario válido <br/>";
     echo "Saldo actual: ".$cuenta->getSaldo()."<br/>";
