@@ -3,11 +3,11 @@
 Undefined Function: Por session_desoy() en lugar de session_destroy().
 HTML Output Issue: Por las etiquetas HTML mal escritas que podrían afectar la visualización del contenido.
 -->
-<?pp
+<?php
 // Mostramos la sesion
 session_start();
 //Distruimos la sesion
-session_desoy();
+session_destroy();
 ?>
 <!DOCTYPE html>
 <html>
