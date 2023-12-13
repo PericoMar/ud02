@@ -21,6 +21,14 @@
         </select>
         <button action="submit">Enviar</button>
     </form>
+    <?php
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $number1 = empty($_POST['number1']) ? $_POST['number1'] : '';
+            $number2 = empty($_POST['number2']) ? $_POST['number2'] : '';
+            
+        }
+
+    ?>
 </body>
 
 </html>
