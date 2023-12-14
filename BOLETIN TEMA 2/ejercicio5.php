@@ -9,10 +9,11 @@
     <form action="" method="post">
         <label for="edad">Edad</label>
         <input type="text" name="edad">
+        <button action="submit">Enviar</button>
     </form>
     <?php
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            if(isset($_POST['edad'])){
+            if(isset($_POST['edad']) && trim($_POST['edad']) != ''){
                 $edad = $_POST['edad'];
                 if($edad >= 18){
                     echo "Eres mayor de edad"; 
