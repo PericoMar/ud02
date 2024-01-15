@@ -24,4 +24,3 @@
         echo "<p>Error $errorNum conectando a la base de datos: $errorMes </p>";
     }
 
-?>
