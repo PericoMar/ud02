@@ -20,7 +20,7 @@
     $username = "user_dwes";
     $password = "userUSER2";
     $dbname = "dwes";
-    $dwes = new PDO('mysql:host=localhost;dbname=dwes', 'user_dwes', 'userUSER2');
+    $dwes = new PDO("mysql:host=$servername;dbname=$dbname", "$username", "$password");
     
     $productos = $dwes->query('SELECT DISTINCT PRODUCTO FROM STOCK');
     ?>
