@@ -142,11 +142,22 @@
         </table>
         
         <?php
+        function tieneStockEnTienda($conn , $producto , $tienda) {
+            $prueba = $conn->query("SELECT TIENDA FROM STOCK WHERE PRODUCTO = '$producto'; AND TIENDA = '$tienda'");
+            return !empty($prueba);
+        }
+
          if(isset($_POST['stock-change'])){
             if(isset($_POST['stock']) && !empty($_POST['stock'])){
                 $stock = $_POST['stock'];
                 $tienda = $_POST['tienda'];
-                $sqlUpdate = "UPDATE STOCK SET UNIDADES = "."'".$stock."'"." WHERE TIENDA = "."'".$tienda."'"." AND PRODUCTO = "."'".$_POST['producto']."'".";";
+                $producto = $_POST['producto'];
+                if(tieneStockEnTienda($conn, $producto, $tienda)){
+                    $sqlUpdate = "UPDATE STOCK SET UNIDADES = '$stock' WHERE TIENDA = '.$tienda' AND PRODUCTO = '$producto';";
+                } else {
+                    $sqlUpdate ="INSERT INTO STOCK VALUES('$producto','$tienda','$stock');";
+                }
+                
                 $conn->query($sqlUpdate);
             } else {
                 ?>
@@ -154,6 +165,8 @@
                 <?php
             }
         }
+
+        
     }
     ?>
 
