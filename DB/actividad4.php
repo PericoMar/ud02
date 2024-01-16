@@ -82,7 +82,7 @@
         $resultStock = $conn->query($sqlStock);
     }
 
-    
+
     ?>
 
     <h2>Consulta de Stock</h2>
@@ -117,7 +117,7 @@
     <?php
     // Mostrar el stock si se ha enviado el formulario
     if ($_SERVER["REQUEST_METHOD"] == "POST" && $resultStock->num_rows > 0) {
-       
+
         ?>
         <h3>Stock del producto seleccionado por tienda:</h3>
         <table>
@@ -140,24 +140,24 @@
             }
             ?>
         </table>
-        
+
         <?php
-        function tieneStockEnTienda($conn , $producto , $tienda) {
-            $prueba = $conn->query("SELECT TIENDA FROM STOCK WHERE PRODUCTO = '$producto'; AND TIENDA = '$tienda'");
-            return !empty($prueba);
+        function tieneStockEnTienda($conn, $producto, $tienda)
+        {
+            return $conn->query("SELECT TIENDA FROM STOCK WHERE PRODUCTO = '$producto'; AND TIENDA = '$tienda'");
         }
 
-         if(isset($_POST['stock-change'])){
-            if(isset($_POST['stock']) && !empty($_POST['stock'])){
+        if (isset($_POST['stock-change'])) {
+            if (isset($_POST['stock']) && !empty($_POST['stock'])) {
                 $stock = $_POST['stock'];
                 $tienda = $_POST['tienda'];
                 $producto = $_POST['producto'];
-                if(tieneStockEnTienda($conn, $producto, $tienda)){
+                if (tieneStockEnTienda($conn, $producto, $tienda)) {
                     $sqlUpdate = "UPDATE STOCK SET UNIDADES = '$stock' WHERE TIENDA = '.$tienda' AND PRODUCTO = '$producto';";
                 } else {
-                    $sqlUpdate ="INSERT INTO STOCK VALUES('$producto','$tienda','$stock');";
+                    $sqlUpdate = "INSERT INTO STOCK VALUES('$producto','$tienda','$stock');";
                 }
-                
+
                 $conn->query($sqlUpdate);
             } else {
                 ?>
@@ -166,7 +166,7 @@
             }
         }
 
-        
+
     }
     ?>
 
