@@ -28,7 +28,15 @@
                             PVP = IF('$pvp' <> '', '$pvp', PVP)
                           WHERE COD = '$cod'";
             
-                $conn->query($query);
+                $stmt = $conn->prepare($query);
+                $stmt->bindParam(1, $nombre_corto);
+                $stmt->bindParam(2, $nombre);
+                $stmt->bindParam(3, $desc);
+                $stmt->bindParam(4, $pvp);
+                $stmt->bindParam(5, $cod);
+            
+                // Ejecuta la consulta
+                $stmt->execute();
                 ?>
                 <h1>El producto ha sido actualizado</h1>
                 <?php
