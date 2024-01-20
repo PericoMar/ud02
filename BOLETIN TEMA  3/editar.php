@@ -30,7 +30,7 @@
                     $pvp = $_POST['pvp'];
                     $sqlQueryProducto = "SELECT NOMBRE , DESCRIPCION ,COD FROM PRODUCTO WHERE NOMBRE_CORTO = '$nombre_corto'";
                     $result = $conn->query($sqlQueryProducto);
-                    $row = $result->fetch(PDO::FETCH_ASSOC)
+                    $row = $result->fetch(PDO::FETCH_ASSOC);
                     $nombre = $row['NOMBRE'];
                     $desc = $row['DESCRIPCION'];
                     $cod = $row['COD'];
@@ -59,13 +59,13 @@
                     </td>
                     <td>
                         <label for="pvp">Nuevo PVP:</label>
-                        <input type="number" name="pvp  ">
+                        <input type="number" name="pvp">
                     </td>
                 </tr>
             </tbody>
         </table>
         <!-- Le paso el cod para usarlo despues en actualizar.php para no tener que hacer otra petición -->
-        <input type="hiden" name=cod value=<?php echo $cod ?>>
+        <input type="hidden" name=cod value=<?php echo $cod ?>>
         <button name="actualizar">Actualizar</button>
         <button name=cancelar>Cancelar</button>
     </form>

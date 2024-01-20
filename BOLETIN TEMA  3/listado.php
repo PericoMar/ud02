@@ -60,7 +60,7 @@
                         <td>
                             <form action="editar.php" method=post>
                                 <input type="hidden" name="nombre_corto" value="<?php echo $nombre_corto ?>">
-                                <input type="hidden" name="nombre_corto" value="<?php echo $pvp ?>">
+                                <input type="hidden" name="pvp" value="<?php echo $pvp ?>">
                                 <button>Editar</button>
                             </form>
                         </td>
