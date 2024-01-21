@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Document</title>
+    <style>
+        *{
+            margin:30px;
+        }
+    </style>
 </head>
 <body>
     <?php
@@ -44,6 +50,10 @@
                 ?>
                 <h1>El producto ha sido actualizado</h1>
                 <?php
+            } else {
+                ?>
+                <h1>Debes rellenar alguno de los campos para poder actualizar el producto/h1>
+                <?php
             }
         } else {
             ?>
@@ -52,7 +62,7 @@
         }
     ?>
     <form action="listado.php">
-                <button>Volver al Inicio</button>
+                <button class="btn btn-dark">Volver al Inicio</button>
     </form>
 </body>
 </html>

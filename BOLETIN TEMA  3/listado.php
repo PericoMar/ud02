@@ -4,7 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Familias</title>
+    <style>
+        *{
+            margin:16px;
+        }
+        label{
+            font-size: 32px;
+            font-style:bold;
+        }
+    </style>
 </head>
 
 <body>
@@ -18,7 +28,7 @@
 
     <form action="" method="post">
         <label for="familias">Seleccione una familia:</label>
-        <select name="familias" id="">
+        <select name="familias" class="form-select">
         <?php
             $sqlQueryFamilias = "SELECT * FROM FAMILIA;";
             $result =  $conn->query($sqlQueryFamilias);
@@ -31,7 +41,7 @@
             }
         ?>
         </select>
-        <button>Mostrar</button>
+        <button class="btn btn-success" >Mostrar</button>
     </form>
     
     <?php
@@ -42,7 +52,7 @@
             $row = $result->fetch(PDO::FETCH_ASSOC);
             if($row){
                 ?>
-                <table>
+                <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>Nombre</th>
@@ -61,7 +71,7 @@
                             <form action="editar.php" method=post>
                                 <input type="hidden" name="nombre_corto" value="<?php echo $nombre_corto ?>">
                                 <input type="hidden" name="pvp" value="<?php echo $pvp ?>">
-                                <button>Editar</button>
+                                <button class="btn btn-secondary">Editar</button>
                             </form>
                         </td>
                     </tbody>
