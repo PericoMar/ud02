@@ -14,26 +14,30 @@
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 
         if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar'])){
-            $nombre_corto = isset($_POST['nombre_corto']) ? mysqli_real_escape_string($conn, $_POST['nombre_corto']) : '';
-            $nombre = isset($_POST['nombre']) ? mysqli_real_escape_string($conn, $_POST['nombre']) : '';
-            $desc = isset($_POST['descripcion']) ? mysqli_real_escape_string($conn, $_POST['descripcion']) : '';
-            $pvp = isset($_POST['pvp']) ? mysqli_real_escape_string($conn, $_POST['pvp']) : '';
-            $cod = isset($_POST['cod']) ? mysqli_real_escape_string($conn, $_POST['cod']) : '';
+            $nombre_corto = isset($_POST['nombre_corto']) ? $_POST['nombre_corto'] : '';
+            $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
+            $desc = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
+            $pvp = isset($_POST['pvp']) ? $_POST['pvp'] : '';
+            $cod = isset($_POST['cod']) ? $_POST['cod'] : '';
             if ($nombre_corto || $nombre || $desc || $pvp) {
                 $query = "UPDATE PRODUCTO 
-                          SET 
-                            NOMBRE_CORTO = IF('$nombre_corto' <> '', '$nombre_corto', NOMBRE_CORTO),
-                            NOMBRE = IF('$nombre' <> '', '$nombre', NOMBRE),
-                            DESCRIPCION = IF('$desc' <> '', '$desc', DESCRIPCION),
-                            PVP = IF('$pvp' <> '', '$pvp', PVP)
-                          WHERE COD = '$cod'";
-            
+                            SET 
+                                NOMBRE_CORTO = CASE WHEN ? <> '' THEN ? ELSE NOMBRE_CORTO END,
+                                NOMBRE = CASE WHEN ? <> '' THEN ? ELSE NOMBRE END,
+                                DESCRIPCION = CASE WHEN ? <> '' THEN ? ELSE DESCRIPCION END,
+                                PVP = CASE WHEN ? <> '' THEN ? ELSE PVP END
+                            WHERE COD = ?";
+
                 $stmt = $conn->prepare($query);
                 $stmt->bindParam(1, $nombre_corto);
-                $stmt->bindParam(2, $nombre);
-                $stmt->bindParam(3, $desc);
-                $stmt->bindParam(4, $pvp);
-                $stmt->bindParam(5, $cod);
+                $stmt->bindParam(2, $nombre_corto);
+                $stmt->bindParam(3, $nombre);
+                $stmt->bindParam(4, $nombre);
+                $stmt->bindParam(5, $desc);
+                $stmt->bindParam(6, $desc);
+                $stmt->bindParam(7, $pvp);
+                $stmt->bindParam(8, $pvp);
+                $stmt->bindParam(9, $cod);
             
                 // Ejecuta la consulta
                 $stmt->execute();
