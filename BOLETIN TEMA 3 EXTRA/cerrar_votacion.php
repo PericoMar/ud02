@@ -21,7 +21,7 @@
             $votosPrimero = $_POST['votos-primero'];
         }
     ?>
-    <h1>El nuevo Jefe/a de Departamento es <?php echo $jefeDepartamento ?> con <?php echo $votosPrimero ?> votos</h1>
+    <h1>El nuevo Jefe/a de Departamento es <?php echo $jefeDepartamento ?> con <?php echo $votosPrimero ?> voto/s</h1>
 
     <form action="inicio.php" class="form-inicio">
         <button class="btn btn-secondary">Volver al inicio</button>
