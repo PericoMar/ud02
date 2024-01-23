@@ -18,6 +18,11 @@
         }
         .form-results{
             display:inline;
+            margin-left:5px;
+        }
+        .input-datalist{
+            width:50%;
+            margin-bottom:10px;
         }
     </style>
 </head>
@@ -34,7 +39,7 @@
         $dbname = "DEPARTAMENTOS";
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 
-        $query = "SELECT CONCAT(NOMBRE , ' ' , APELLIDOS, ' (' , DNI , ')') AS EMPLEADO , DNI 
+        $query = "SELECT CONCAT(NOMBRE , ' ' , APELLIDOS) AS EMPLEADO , DNI 
                             FROM EMPLEADOS
                             WHERE VOTO IS NULL;";
                 $result = $conn->query($query);
@@ -44,7 +49,8 @@
 
     <h1>¿Quién eres?</h1>
     <form action="votar.php" method=post class=form-empleados>
-        <select name=dni-votante class="form-select select-empleados">
+        <input list="empleados" name=dni-votante class="form-control input-datalist" placeholder="Nombre o DNI">
+        <datalist id="empleados" >
             <?php
                     while($row){
                         $empleado = $row['EMPLEADO'];
@@ -55,7 +61,7 @@
                         $row = $result->fetch(PDO::FETCH_ASSOC);
                     }
             ?>
-        </select>
+        </datalist>
         <button class="btn-votar btn btn-primary">Iniciar votación</button>   
     </form>
     <?php
