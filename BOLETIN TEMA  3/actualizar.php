@@ -9,9 +9,28 @@
         *{
             margin:30px;
         }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            font-size: 24px;
+            margin: 0;
+            text-align: center;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
+    <header>
+        <h1>Actualización</h1>
+    </header>
     <?php
         $servername = "localhost";
         $username = "user_dwes";
@@ -64,5 +83,8 @@
     <form action="listado.php">
                 <button class="btn btn-dark">Volver al Inicio</button>
     </form>
+    <footer>
+        <p>&copy; 2024 Pedro Martínez González | Todos los derechos reservados</p>
+    </footer>
 </body>
 </html>

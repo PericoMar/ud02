@@ -6,6 +6,14 @@
     <title>Editar producto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            font-size: 24px;
+            margin: 0;
+            text-align: center;
+        }
         table{
             margin:32px;
             height:400px;
@@ -14,9 +22,20 @@
         button{
             margin:0px 300px;
         }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
+<header>
+        <h1>Editar producto</h1>
+    </header>
     <?php
         $servername = "localhost";
         $username = "user_dwes";
@@ -85,5 +104,8 @@
             <button name=cancelar class="btn btn-danger">Cancelar</button>
         </div>
     </form>
+    <footer>
+        <p>&copy; 2024 Pedro Martínez González | Todos los derechos reservados</p>
+    </footer>
 </body>
 </html>
