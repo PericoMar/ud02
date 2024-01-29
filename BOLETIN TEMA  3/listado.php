@@ -15,8 +15,11 @@
             margin: 0;
             text-align: center;
         }
-        main{
-            margin : 32px;
+        main {
+            margin : 30px;
+        }
+        main * {
+            margin: 4px;
         }
         label{
             font-size: 32px;
@@ -48,7 +51,7 @@
 
     <form action="" method="post">
         <label for="familias">Seleccione una familia:</label>
-        <select name="familias" class="form-select">
+        <select name="familias" class="form-select" id=familias>
         <?php
             $sqlQueryFamilias = "SELECT * FROM FAMILIA;";
             $result =  $conn->query($sqlQueryFamilias);
