@@ -1,25 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Document</title>
     <style>
-        .table-results{
-            width:60%;
-            margin:32px;
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            font-size: 24px;
+            margin: 0;
+            text-align: center;
         }
-        .form-cerrar{
-            display:inline;
-            margin-left:420px;
+
+        .table-results {
+            width: 60%;
+            margin: 32px;
         }
-        .form-inicio{
-            display:inline;
-            margin-left:32px;
+
+        .form-cerrar {
+            display: inline;
+            margin-left: 420px;
+        }
+
+        .form-inicio {
+            display: inline;
+            margin-left: 32px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
         }
     </style>
 </head>
+
 <body>
     <!-- Lista de empleados que no hayan votado (Que no tengan relleno el campo VOTO) -->
     <!-- Pulsan iniciar votacion y se redirije a una tabla de empleados(ES_CANDIDATO && NO EL MISMO) con botones al lado: -->
@@ -27,21 +50,24 @@
     <!-- Si el Primero en votos tiene > 0 aparece el boton (cerrar votacion), sino no. -->
 
     <?php
-        $servername = "localhost";
-        $username = "gestor_empleados";
-        $password = "gestorGESTOR2";
-        $dbname = "DEPARTAMENTOS";
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $servername = "localhost";
+    $username = "gestor_empleados";
+    $password = "gestorGESTOR2";
+    $dbname = "DEPARTAMENTOS";
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            $dniVotante = $_POST['dni-votante'];
-            $dniCandidato = $_POST['dni-candidato'];
-            $query = "UPDATE EMPLEADOS
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $dniVotante = $_POST['dni-votante'];
+        $dniCandidato = $_POST['dni-candidato'];
+        $query = "UPDATE EMPLEADOS
                         SET VOTO = '$dniCandidato'
                         WHERE DNI = '$dniVotante';";
-            $conn->query($query);
-        }
+        $conn->query($query);
+    }
     ?>
+    <header>
+        <h1>Votación para Jefe de Departamento</h1>
+    </header>
     <table class="table table-bordered table-hover table-results">
         <thead>
             <tr>
@@ -50,7 +76,7 @@
             </tr>
         </thead>
         <tbody>
-        <?php
+            <?php
             $query = "SELECT CONCAT(E.NOMBRE , ' ' , E.APELLIDOS, ' (' , E.DNI , ')') AS EMPLEADO , COUNT(V.VOTO) AS VOTOS
                         FROM EMPLEADOS E
                         LEFT JOIN EMPLEADOS V ON E.DNI = V.VOTO
@@ -64,39 +90,51 @@
             $empleadoPrimero = $row['EMPLEADO'];
             $votosPrimero = $row['VOTOS'];
             ?>
-                <tr>
-                    <th><?php echo $empleadoPrimero ?></th>
-                    <th><?php echo $votosPrimero ?></th>
-                </tr>
+            <tr>
+                <th>
+                    <?php echo $empleadoPrimero ?>
+                </th>
+                <th>
+                    <?php echo $votosPrimero ?>
+                </th>
+            </tr>
             <?php
             $row = $result->fetch(PDO::FETCH_ASSOC);
-            while($row){
+            while ($row) {
                 $empleado = $row['EMPLEADO'];
                 $votos = $row['VOTOS'];
                 ?>
                 <tr>
-                    <th><?php echo $empleado ?></th>
-                    <th><?php echo $votos ?></th>
+                    <th>
+                        <?php echo $empleado ?>
+                    </th>
+                    <th>
+                        <?php echo $votos ?>
+                    </th>
                 </tr>
                 <?php
                 $row = $result->fetch(PDO::FETCH_ASSOC);
             }
-        ?>
+            ?>
         </tbody>
     </table>
     <?php
-        if($votosPrimero){
-            ?>
-            <form action="cerrar_votacion.php" class="form-cerrar" method=post>
-                <input type="hidden" value="<?php echo $empleadoPrimero ?>" name=empleado-primero>
-                <input type="hidden" value=<?php echo $votosPrimero ?> name=votos-primero>
-                <button class="btn btn-danger">Cerrar votaciones</button>
-            </form>
-            <?php
-        }
+    if ($votosPrimero) {
+        ?>
+        <form action="cerrar_votacion.php" class="form-cerrar" method=post>
+            <input type="hidden" value="<?php echo $empleadoPrimero ?>" name=empleado-primero>
+            <input type="hidden" value=<?php echo $votosPrimero ?> name=votos-primero>
+            <button class="btn btn-danger">Cerrar votaciones</button>
+        </form>
+        <?php
+    }
     ?>
     <form action="inicio.php" class="form-inicio">
         <button class="btn btn-secondary">Volver al inicio</button>
     </form>
+    <footer>
+        <p>&copy; 2024 Pedro Martínez González | Todos los derechos reservados</p>
+    </footer>
 </body>
+
 </html>
