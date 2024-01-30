@@ -38,52 +38,59 @@
     <!-- Redirije a resultados y suma el voto, aparece la lista de empleados(ES_CANDIDATO) con la COUNT() de los votos. -->
     <!-- Si el Primero en votos tiene > 0 aparece el boton (cerrar votacion), sino no. -->
     <?php
-    $servername = "localhost";
-    $username = "gestor_empleados";
-    $password = "gestorGESTOR2";
-    $dbname = "DEPARTAMENTOS";
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    try{
+        $servername = "localhost";
+        $username = "gestor_empleados";
+        $password = "gestorGESTOR2";
+        $dbname = "DEPARTAMENTOS";
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $dniVotante = $_POST['dni-votante'];
-    }
-    ?>
-    <header>
-        <h1>Votación para Jefe de Departamento</h1>
-    </header>
-
-    <form action="resultados.php" method=post>
-        <table class="table table-bordered table-hover">
-            <thead class="encabezado">
-                <tr>
-                    <th>Empleado</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $query = "SELECT CONCAT(NOMBRE , ' ' , APELLIDOS, ' (' , DNI , ')') AS EMPLEADO , DNI
-                                FROM EMPLEADOS
-                                WHERE ES_CANDIDATO AND DNI != '$dniVotante';";
-                $result = $conn->query($query);
-                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                    $empleado = $row['EMPLEADO'];
-                    $dni = $row['DNI'];
-                    ?>
-                    <tr>
-                        <th>
-                            <?php echo $empleado ?>
-                        </th>
-                        <th><button name=dni-candidato class="btn btn-success" value=<?php echo $dni ?>>VOTAR</button></th>
-                    </tr>
-                    <?php
-                }
-                ?>
-            </tbody>
-        </table>
-        <?php
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dniVotante = $_POST['dni-votante'];
+        }
+        ?>
+        <header>
+            <h1>Votación para Jefe de Departamento</h1>
+        </header>
+
+        <form action="resultados.php" method=post>
+            <table class="table table-bordered table-hover">
+                <thead class="encabezado">
+                    <tr>
+                        <th>Empleado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $query = "SELECT CONCAT(NOMBRE , ' ' , APELLIDOS, ' (' , DNI , ')') AS EMPLEADO , DNI
+                                    FROM EMPLEADOS
+                                    WHERE ES_CANDIDATO AND DNI != '$dniVotante';";
+                    $result = $conn->query($query);
+                    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                        $empleado = $row['EMPLEADO'];
+                        $dni = $row['DNI'];
+                        ?>
+                        <tr>
+                            <th>
+                                <?php echo $empleado ?>
+                            </th>
+                            <th><button name=dni-candidato class="btn btn-success" value=<?php echo $dni ?>>VOTAR</button></th>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                </tbody>
+            </table>
+            <?php
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                ?>
+                <input type="hidden" name=dni-votante value=<?php echo $dniVotante ?>>
+                <?php
+            }
+        }catch(PDOException $e){    
             ?>
-            <input type="hidden" name=dni-votante value=<?php echo $dniVotante ?>>
+            <h1>Error con la conexión a la base de datos. Asegurate de estar conectado</h1>
+            <h3><?php echo $e->getMessage(); ?></h3>
             <?php
         }
         ?>

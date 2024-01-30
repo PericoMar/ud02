@@ -50,6 +50,7 @@
     <!-- Si el Primero en votos tiene > 0 aparece el boton (cerrar votacion), sino no. -->
 
     <?php
+    try{
     $servername = "localhost";
     $username = "gestor_empleados";
     $password = "gestorGESTOR2";
@@ -132,6 +133,14 @@
     <form action="inicio.php" class="form-inicio">
         <button class="btn btn-secondary">Volver al inicio</button>
     </form>
+    <?php
+    }catch(PDOException $e){    
+        ?>
+        <h1>Error con la conexión a la base de datos. Asegurate de estar conectado</h1>
+        <h3><?php echo $e->getMessage(); ?></h3>
+        <?php
+    }
+    ?>
     <footer>
         <p>&copy; 2024 Pedro Martínez González | Todos los derechos reservados</p>
     </footer>
