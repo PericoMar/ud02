@@ -35,7 +35,7 @@
 <body>
 <header>
         <h1>Editar producto</h1>
-    </header>
+</header>
     <?php
     try{
         $servername = "localhost";

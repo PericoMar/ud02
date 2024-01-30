@@ -1,6 +1,5 @@
 <?php
 // vista.php
-// include_once('../MODELO/modelo.php');
 
 $familias = obtenerFamilias();
 ?>
@@ -46,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <td><?php echo $nombre_corto ?></td>
                         <td><?php echo $pvp ?></td>
                         <td>
-                            <form action="editar.php" method="post">
+                            <form action="index.php" method="post">
                                 <input type="hidden" name="nombre_corto" value="<?php echo $nombre_corto ?>">
                                 <input type="hidden" name="pvp" value="<?php echo $pvp ?>">
                                 <button type="submit" class="btn btn-secondary">Editar</button>
