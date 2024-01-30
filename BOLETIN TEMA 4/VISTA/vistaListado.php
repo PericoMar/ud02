@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <form action="index.php" method="post">
                                 <input type="hidden" name="nombre_corto" value="<?php echo $nombre_corto ?>">
                                 <input type="hidden" name="pvp" value="<?php echo $pvp ?>">
-                                <button type="submit" class="btn btn-secondary">Editar</button>
+                                <button type="submit" name=editar class="btn btn-secondary">Editar</button>
                             </form>
                         </td>
                     </tr>
