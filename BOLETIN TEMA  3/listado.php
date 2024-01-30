@@ -42,6 +42,7 @@
     </header>
     <main>
     <?php
+    try{
         $servername = "localhost";
         $username = "user_dwes";
         $password = "userUSER2";
@@ -111,6 +112,12 @@
     </main>
 
     <?php
+    }catch(PDOException $e){    
+        ?>
+        <h1>Error con la conexión a la base de datos. Asegurate de estar conectado</h1>
+        <h3><?php echo $e->getMessage(); ?></h3>
+        <?php
+    }
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             ?>
             <footer>

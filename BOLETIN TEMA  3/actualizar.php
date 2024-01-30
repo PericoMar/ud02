@@ -32,6 +32,7 @@
         <h1>Actualización</h1>
     </header>
     <?php
+    try{
         $servername = "localhost";
         $username = "user_dwes";
         $password = "userUSER2";
@@ -83,6 +84,14 @@
     <form action="listado.php">
                 <button class="btn btn-dark">Volver al Inicio</button>
     </form>
+    <?php
+    }catch(PDOException $e){    
+        ?>
+        <h1>Error con la conexión a la base de datos. Asegurate de estar conectado</h1>
+        <h3><?php echo $e->getMessage(); ?></h3>
+        <?php
+    }
+    ?>
     <footer>
         <p>&copy; 2024 Pedro Martínez González | Todos los derechos reservados</p>
     </footer>
