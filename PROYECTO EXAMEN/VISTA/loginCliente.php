@@ -19,6 +19,6 @@
             }
         }
     ?>
-    <button>Inicia Sesión</button>
+    <button name=login>Inicia Sesión</button>
     <p>¿No tienes cuenta? <a href="index.php?register=1">Regístrate aquí</a></p>
 </form>

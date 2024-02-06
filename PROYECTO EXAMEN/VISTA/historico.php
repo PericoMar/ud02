@@ -1,5 +1,5 @@
 <?php
-if (isset($reservasActivas)) {
+if ($reservasPasadas) {
     ?>
     <form action="index.php" method=post class=form-gestionar>
         <table>
@@ -14,7 +14,7 @@ if (isset($reservasActivas)) {
             </thead>
             <tbody>
                 <?php
-                foreach ($reservasActivas as $reserva) {
+                foreach ($reservasPasadas as $reserva) {
                     $fecha = $reserva['date'];
                     $hora = $reserva['time'];
                     $mesa = $reserva['table_number'];
@@ -38,8 +38,6 @@ if (isset($reservasActivas)) {
                             <?php echo $desc ?>
                             <input type="hidden" name="desc">
                         </td>
-                        <input type="hidden" value=<?php echo $email ?>> 
-                        <td><button name=cancelar>Cancelar</button></td>
                     </tr>
                     <?php
                 }
@@ -51,10 +49,10 @@ if (isset($reservasActivas)) {
 } else {
     ?>
     <form action="index.php" method=post>
-        <h1>No tienes reservas aún.</h1>
-        <p>Recuerda que puedes hacer tus reservas aquí:</p>
+        <h1>No tienes reservas pasadas aún.</h1>
+        <p>Recuerda que puedes ver tus reservas activas aquí:</p>
         <input type="hidden" name=email value=<?php echo $email ?>>
-        <button name="nueva-reserva">Nueva reserva</button>
+        <button name="gestionar">Gestionar reservas</button>
     </form>
     <?php
 }

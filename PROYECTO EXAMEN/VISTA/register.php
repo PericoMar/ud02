@@ -13,4 +13,5 @@
         }
     ?>
     <button>Registrate</button>
+    <p>¿Ya tienes cuenta? <a href="index.php?rol=cliente">Inicia sesión aquí.</a></p>
 </form>

@@ -19,7 +19,8 @@ CREATE TABLE BOOKING (
     description TEXT,
     client_email varchar(50),
     PRIMARY KEY (date, time, table_number),
-    FOREIGN KEY (client_email) REFERENCES Client(email)
+    FOREIGN KEY (client_email) REFERENCES Client(email),
+    CHECK (time IN ('20:30', '21:00', '21:30', '22:00', '22:30', '23:00'))
 );
 
 CREATE TABLE EMPLOYEE (

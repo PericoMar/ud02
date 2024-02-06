@@ -6,6 +6,20 @@ $header = 'VISTA/headerInicio.php';
 $content = 'VISTA/inicio.php';
 
 
+if(isset($_POST['email'])){
+    $email = $_POST['email'];
+    $email = strtolower($email);
+}
+
+if(isset($_GET['email'])){
+    $email = $_GET['email'];
+    $email = strtolower($email);
+}
+
+if(isset($_POST['password'])){
+    $pass = $_POST['password'];
+}
+
 // Seleccion del rol:
 if(isset($_GET['rol'])){
     $rol = $_GET['rol'];
@@ -22,9 +36,7 @@ if(isset($_GET['register'])){
 }
 
 // Comprobación de los datos de inicio de sesión o registro:
-if(isset($_POST['email']) && isset($_POST['password'])){
-    $email = $_POST['email'];
-    $pass = $_POST['password'];
+if(isset($_POST['login'])){
     // Si es un nuevo registro entra directamente:
     if(isset($_POST['register'])){
         if(userExists($email)){
@@ -46,9 +58,50 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     }
 }
 
-if(isset($_POST['gestionar'])){
-    $email = $_POST['email'];
-    $reservas = reservasActivas($email);
+if(isset($_POST['gestionar']) || isset($_GET['gestionar'])){
+    $reservasActivas = reservasActivas($email);
+    $header = 'VISTA/headerLoged.php';
+    $content = 'VISTA/gestionar.php';
+}
+
+if(isset($_POST['nueva-reserva']) || isset($_GET['nueva-reserva'])){
+    $header = 'VISTA/headerLoged.php';
+    $content = 'VISTA/nueva-reserva.php';
+}
+
+if(isset($_POST['historico']) || isset($_GET['historico'])){
+    $reservasPasadas = reservasPasadas($email);
+    $header = 'VISTA/headerLoged.php';
+    $content = 'VISTA/historico.php';
+}
+
+if(isset($_POST['reserva-hecha'])){
+    $fecha = $_POST['fecha']; 
+    $hora = $_POST['hora'];
+    $mesa = $_POST['mesa'];
+    $desc = $_POST['desc'];
+    if(reservaExistente($fecha, $hora, $mesa)){
+        $header = 'VISTA/headerLoged.php';
+        $content = 'VISTA/nueva-reserva.php';
+        $reservaOcupada = true;
+    } else if(reservaInvalida($fecha ,$hora)) {
+        $header = 'VISTA/headerLoged.php';
+        $content = 'VISTA/nueva-reserva.php';
+        $reservaInvalida = true;
+    } else {
+        nuevaReserva($fecha, $hora, $mesa, $desc, $email);
+        $header = 'VISTA/headerLoged.php';
+        $content = 'VISTA/welcome.php';
+        $reservaHecha = true;
+    }
+}
+
+if(isset($_POST['cancelar'])){
+    $fecha = $_POST['fecha']; 
+    $hora = $_POST['hora'];
+    $mesa = $_POST['mesa'];
+    $desc = $_POST['desc'];
+    cancelarReserva($fecha, $hora, $mesa);
     $header = 'VISTA/headerLoged.php';
     $content = 'VISTA/gestionar.php';
 }
