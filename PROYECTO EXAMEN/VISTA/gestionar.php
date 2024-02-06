@@ -1,7 +1,7 @@
 <?php
 if (isset($reservasActivas)) {
     ?>
-    <form action="index.php" method=post class=form-gestionar>
+    
         <table>
             <thead>
                 <tr>
@@ -22,31 +22,32 @@ if (isset($reservasActivas)) {
 
                     ?>
                     <tr>
+                        <form action="index.php" method=post class=form-gestionar>
                         <td>
                             <?php echo $fecha ?>
-                            <input type="hidden" name="fecha">
+                            <input type="hidden" name="fecha" value=<?php echo $fecha?>>
                         </td>
                         <td>
                             <?php echo $hora ?>
-                            <input type="hidden" name="hora">
+                            <input type="hidden" name="hora" value=<?php echo $hora ?>>
                         </td>
                         <td>
                             <?php echo $mesa ?>
-                            <input type="hidden" name="mesa">
+                            <input type="hidden" name="mesa" value=<?php echo $mesa ?>>
                         </td>
                         <td class=descripcion>
                             <?php echo $desc ?>
-                            <input type="hidden" name="desc">
                         </td>
-                        <input type="hidden" value=<?php echo $email ?>> 
+                        <input type="hidden" value=<?php echo $email ?> name=email> 
                         <td><button name=cancelar>Cancelar</button></td>
+                        </form>
                     </tr>
                     <?php
                 }
                 ?>
             </tbody>
         </table>
-    </form>
+    
     <?php
 } else {
     ?>

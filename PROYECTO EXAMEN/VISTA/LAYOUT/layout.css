@@ -18,6 +18,12 @@ h2 {
     margin: 0;
 }
 
+.title {
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit; /* Mantener el color del texto original */
+}
+
 nav ul {
     list-style-type: none;
     padding: 0;
@@ -146,9 +152,25 @@ form.form-gestionar{
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 2px solid #ddd; /* Borde de la tabla */
+    background-color: #fff; /* Color de fondo del formulario */
+    padding: 20px;
+    border-radius: 10px; /* Borde redondeado */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    width: 1000px;
+}
+
+table button{
+    background-color: #DD2700; /* Color de fondo del botón */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left:auto;
+}
+
+table button:hover{
+    background-color: #ff0000;
 }
 
 th, td {
@@ -173,6 +195,11 @@ tr:hover {
     overflow-y: auto;
     width:200px;
 }
+
+h3{
+    color:#4CAF50;
+}
+
 
 button {
     padding: 5px 10px;

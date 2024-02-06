@@ -69,10 +69,9 @@ function cancelarReserva($fecha, $hora, $mesa)
 function reservasActivas($email)
 {
     global $conn;
-    $email = strtolower($email);
     $query = "SELECT date, time, table_number, description
     FROM BOOKING
-    WHERE date >= CURDATE() AND time >= CURTIME() AND client_email = '$email';";
+    WHERE date >= CURDATE() AND (date > CURDATE() OR (date = CURDATE() AND time >= CURTIME())) AND client_email = '$email';";
     $result = $conn->query($query);
     return $result->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -80,11 +79,17 @@ function reservasActivas($email)
 function reservasPasadas($email)
 {
     global $conn;
-    $email = strtolower($email);
     $query = "SELECT date, time, table_number, description
     FROM BOOKING
-    WHERE date < CURDATE() AND time < CURTIME() AND client_email = '$email';
-    ";
+    WHERE date < CURDATE() OR (date = CURDATE() AND time < CURTIME()) AND client_email = '$email';";
     $result = $conn->query($query);
     return $result->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+function employeeExists($user, $pass){
+    global $conn;
+    $query = "SELECT username FROM EMPLOYEE WHERE username = '$user' AND password = '$pass';";
+    $result = $conn->query($query);
+    return $result->fetch(PDO::FETCH_ASSOC); 
 }

@@ -12,6 +12,6 @@
             <?php
         }
     ?>
-    <button>Registrate</button>
+    <button name=loged>Registrate</button>
     <p>¿Ya tienes cuenta? <a href="index.php?rol=cliente">Inicia sesión aquí.</a></p>
 </form>
