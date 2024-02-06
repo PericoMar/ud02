@@ -5,5 +5,12 @@
     <label for="password">Contraseña:</label>
     <input type="password" name=password required>
     <input type="hidden" name=register>
+    <?php
+        if(isset($email)){
+            ?>
+            <small>Ya existe una cuenta con este correo</small>
+            <?php
+        }
+    ?>
     <button>Registrate</button>
 </form>

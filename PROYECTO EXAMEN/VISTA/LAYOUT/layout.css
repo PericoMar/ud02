@@ -52,6 +52,11 @@ form {
     padding: 20px;
     border-radius: 10px; /* Borde redondeado */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    width:350px;
+    display:flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: stretch;
 }
 
 form h1 {
@@ -83,14 +88,10 @@ form p {
     text-align: center;
 }
 
-footer {
-    background-color: #333; /* Color de fondo del footer */
-    color: #fff; /* Color del texto */
-    text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+form small{
+    color:#DD2700;
+    margin-top:4px;
+    margin-bottom: 6px;
 }
 
 div.container-btns{
@@ -99,6 +100,23 @@ div.container-btns{
     align-items: center;
 }
 
-button.block {
-    display:block;
+div.column{
+    display:flex;
+    flex-flow:column nowrap;
+    justify-content: center;
+    align-items:center;
+}
+
+div.column a{
+    margin-top: 6px;
+}
+
+footer {
+    background-color: #333; /* Color de fondo del footer */
+    color: #fff; /* Color del texto */
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }

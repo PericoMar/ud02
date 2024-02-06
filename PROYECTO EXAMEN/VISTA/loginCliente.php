@@ -1,4 +1,4 @@
-<form action="index.php" method=post>
+<form action="index.php" method=post class=login>
     <h1>Inicia Sesión</h1>
     <label for="email">Email:</label>
     <input type="email" name=email id=email required>
@@ -6,8 +6,8 @@
     <input type="password" name=password required>
     <?php 
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            if(userExists($_POST['email'])){
-                if(!passwdMatch($_POST['email'] , $_POST['password'])){
+            if(userExists($email)){
+                if(!passwdMatch($email , $pass)){
                     ?>
                     <small>Contraseña incorrecta</small>
                     <?php
