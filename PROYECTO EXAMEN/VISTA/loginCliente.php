@@ -1,9 +1,24 @@
-<form action="index.php">
+<form action="index.php" method=post>
     <h1>Inicia Sesión</h1>
     <label for="email">Email:</label>
-    <input type="email" id=email>
+    <input type="email" name=email id=email required>
     <label for="password">Contraseña:</label>
-    <input type="password">
+    <input type="password" name=password required>
+    <?php 
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            if(userExists($_POST['email'])){
+                if(!passwdMatch($_POST['email'] , $_POST['password'])){
+                    ?>
+                    <small>Contraseña incorrecta</small>
+                    <?php
+                }
+            } else {
+                ?>
+                <small>No hay ninguna cuenta con este email</small>
+                <?php
+            }
+        }
+    ?>
     <button>Inicia Sesión</button>
-    <p>¿No tienes cuenta? <a href="">Regístrate aquí</a></p>
+    <p>¿No tienes cuenta? <a href="index.php?register=1">Regístrate aquí</a></p>
 </form>
