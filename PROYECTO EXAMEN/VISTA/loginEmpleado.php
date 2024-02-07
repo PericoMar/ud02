@@ -5,7 +5,7 @@
     <label for="password">Contraseña</label>
     <input type="password" name=password>
     <?php
-        if($credencialesIncorrectas){
+        if(isset($credencialesIncorrectas)){
             ?>
             <small>Credenciales incorrectas.</small>
             <?php

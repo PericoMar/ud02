@@ -23,6 +23,7 @@ function userExists($email)
     return $result->fetch(PDO::FETCH_ASSOC);
 }
 
+
 function passwdMatch($email, $pass)
 {
     global $conn;
@@ -86,10 +87,25 @@ function reservasPasadas($email)
     return $result->fetchAll(PDO::FETCH_ASSOC);
 }
 
-
-function employeeExists($user, $pass){
+function createEmployeeUser($user,$pass)
+{
     global $conn;
-    $query = "SELECT username FROM EMPLOYEE WHERE username = '$user' AND password = '$pass';";
+    $query = "INSERT INTO employee (username, password)
+    VALUES ('$user','$pass');";
+    $conn->query($query);
+}
+
+function employeeExists($user){
+    global $conn;
+    $query = "SELECT username FROM EMPLOYEE WHERE username = '$user';";
     $result = $conn->query($query);
     return $result->fetch(PDO::FETCH_ASSOC); 
+}
+
+function todasReservasActivas()
+{
+    global $conn;
+    $query = "SELECT client_email, date, time, table_number,description FROM BOOKING;";
+    $result = $conn->query($query);
+    return $result->fetchAll(PDO::FETCH_ASSOC);
 }

@@ -27,3 +27,5 @@ CREATE TABLE EMPLOYEE (
     username VARCHAR(20) PRIMARY KEY,
     password VARCHAR(50) NOT NULL
 );
+
+INSERT INTO EMPLOYEE (username, password) VALUES ('admin1' , '1234');

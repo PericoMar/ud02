@@ -6,6 +6,18 @@ $header = 'VISTA/headerInicio.php';
 $content = 'VISTA/inicio.php';
 
 
+// Seleccion del rol:
+if(isset($_GET['rol'])){
+    $rol = $_GET['rol'];
+    if($rol == 'cliente'){
+        $content = 'VISTA/loginCliente.php';
+    } else {
+        $content = 'VISTA/loginEmpleado.php';
+    }
+}
+
+//CLIENTE:
+
 if(isset($_POST['email'])){
     $email = $_POST['email'];
     $email = strtolower($email);
@@ -18,16 +30,6 @@ if(isset($_GET['email'])){
 
 if(isset($_POST['password'])){
     $pass = $_POST['password'];
-}
-
-// Seleccion del rol:
-if(isset($_GET['rol'])){
-    $rol = $_GET['rol'];
-    if($rol == 'cliente'){
-        $content = 'VISTA/loginCliente.php';
-    } else {
-        $content = 'VISTA/loginEmpleado.php';
-    }
 }
 
 // Redirigir a pagina de registro:
@@ -85,17 +87,15 @@ if(isset($_POST['reserva-hecha'])){
     $hora = $_POST['hora'];
     $mesa = $_POST['mesa'];
     $desc = $_POST['desc'];
+    $header = 'VISTA/headerLoged.php';
     if(reservaExistente($fecha, $hora, $mesa)){
-        $header = 'VISTA/headerLoged.php';
         $content = 'VISTA/nueva-reserva.php';
         $reservaOcupada = true;
     } else if(reservaInvalida($fecha ,$hora)) {
-        $header = 'VISTA/headerLoged.php';
         $content = 'VISTA/nueva-reserva.php';
         $reservaInvalida = true;
     } else {
         nuevaReserva($fecha, $hora, $mesa, $desc, $email);
-        $header = 'VISTA/headerLoged.php';
         $content = 'VISTA/welcome.php';
         $reservaHecha = true;
     }
@@ -111,15 +111,58 @@ if(isset($_POST['cancelar'])){
     $content = 'VISTA/gestionar.php';
 }
 
-if(isset($_POST['empleado-loged'])){
+//EMPLEADO
+
+if(isset($_POST['user'])){
     $user = $_POST['user'];
-    if(employeeExists($user, $pass)){
+}
+
+if(isset($_GET['user'])){
+    $user = $_GET['user'];
+}
+
+if(isset($_POST['empleado-loged']) || isset($_GET['empleado-loged'])){
+    if(employeeExists($user)){
         $header = 'VISTA/headerEmployee.php';
         $content = 'VISTA/empleadoLoged.php';
     } else {
         $content = 'VISTA/loginEmpleado.php';
         $credencialesIncorrectas = true;
     }
+}
+
+if(isset($_POST['new-user']) || isset($_GET['new-user'])){
+    $header = 'VISTA/headerEmployee.php';
+    $content = 'VISTA/new-user.php';
+}
+
+if(isset($_POST['new-user-created'])){
+    $newUser = $_POST['new-user'];
+    $header = 'VISTA/headerEmployee.php';
+    if(employeeExists($newUser)){
+        $content = 'VISTA/new-user.php';
+        $employeeAlreadyExists = true;
+    } else {
+        createEmployeeUser($newUser,$pass);
+        $content = 'VISTA/empleadoLoged.php';
+        $userEmployeeCreated = true;
+    }
+}
+
+if(isset($_POST['gestion']) || isset($_GET['gestion'])){
+    $reservas = todasReservasActivas();
+    $header = 'VISTA/headerEmployee.php';
+    $content = 'VISTA/gestion.php';
+}
+
+if(isset($_POST['cancelada-empleado'])){
+    $fecha = $_POST['fecha'];
+    $hora = $_POST['hora'];
+    $mesa = $_POST['mesa'];
+    cancelarReserva($fecha,$hora,$mesa);
+    $reservas = todasReservasActivas();
+    $header = 'VISTA/headerEmployee.php';
+    $content = 'VISTA/gestion.php';
 }
 
 include('VISTA/LAYOUT/layout.php');
