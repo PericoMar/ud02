@@ -55,6 +55,7 @@ if(isset($_POST['loged'])){
             $header = 'VISTA/headerLoged.php';
             $content = 'VISTA/welcome.php';
         } else {
+            $mensaje =userExists($email) ? 'Contraseña incorrecta' : 'No hay ninguna cuenta con este email';
             $content = 'VISTA/loginCliente.php';
         }
     }

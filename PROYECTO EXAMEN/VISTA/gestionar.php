@@ -1,5 +1,5 @@
 <?php
-if (isset($reservasActivas)) {
+if ($reservasActivas) {
     ?>
     
         <table>

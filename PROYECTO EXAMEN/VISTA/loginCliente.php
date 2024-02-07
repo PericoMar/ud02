@@ -6,18 +6,12 @@
     <input type="password" name=password required>
     <?php 
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            if(userExists($email)){
-                if(!passwdMatch($email , $pass)){
+            if(isset($mensaje)){
                     ?>
-                    <small>Contraseña incorrecta</small>
+                    <small><?php echo $mensaje ?></small>
                     <?php
-                }
-            } else {
-                ?>
-                <small>No hay ninguna cuenta con este email</small>
-                <?php
             }
-        }
+        } 
     ?>
     <button name=loged>Inicia Sesión</button>
     <p>¿No tienes cuenta? <a href="index.php?register=1">Regístrate aquí</a></p>

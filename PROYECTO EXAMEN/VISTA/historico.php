@@ -9,7 +9,6 @@ if ($reservasPasadas) {
                     <th>Hora</th>
                     <th>Mesa</th>
                     <th>Descripción</th>
-                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
