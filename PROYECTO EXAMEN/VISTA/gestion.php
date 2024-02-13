@@ -1,6 +1,10 @@
 <?php
     if($reservas){
 ?>
+<form action="index.php" method=post>
+    <input name=fechaFiltrar type="date">
+    <button>Filtrar</button>
+</form>
 <table>
         <thead>
             <tr>
