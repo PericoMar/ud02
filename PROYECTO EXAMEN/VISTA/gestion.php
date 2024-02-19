@@ -5,6 +5,7 @@ if ($reservas) {
         <div class="contenedor-filtro">
             <form action="index.php" method=post class=filtro>
                 <input name=fechaFiltrar type="date">
+                <input type="hidden" name="user" value=<?php echo $user ?>>
                 <button name=filtrar >Filtrar</button>
             </form>
         </div>
