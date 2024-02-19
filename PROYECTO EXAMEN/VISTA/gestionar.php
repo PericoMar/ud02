@@ -39,6 +39,9 @@ if ($reservasActivas) {
                             <?php echo $desc ?>
                         </td>
                         <input type="hidden" value=<?php echo $email ?> name=email> 
+                        <?php
+                            
+                        ?>
                         <td><button name=cancelar>Cancelar</button></td>
                         </form>
                     </tr>

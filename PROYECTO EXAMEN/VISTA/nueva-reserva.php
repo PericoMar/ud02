@@ -29,7 +29,12 @@
         }
         if(isset($reservaInvalida)){
             ?>
-            <small>Lo siento, la reserva no puede ser realizada porque la hora seleccionada ya ha pasado.</small>
+            <small>Lo siento, la reserva no puede ser realizada porque la fecha u hora seleccionada ya ha pasado.</small>
+            <?php
+        }
+        if(isset($formatoFechaInvalido)){
+            ?>
+            <small>Formato de fecha invalida.</small>
             <?php
         }
     ?>

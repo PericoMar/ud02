@@ -85,11 +85,15 @@ if(isset($_POST['historico']) || isset($_GET['historico'])){
 
 if(isset($_POST['reserva-hecha'])){
     $fecha = $_POST['fecha']; 
+    
     $hora = $_POST['hora'];
     $mesa = $_POST['mesa'];
     $desc = $_POST['desc'];
     $header = 'VISTA/headerLoged.php';
-    if(reservaExistente($fecha, $hora, $mesa)){
+    if(preg_match('/\b\d{5,}\b/', $fecha)){
+        $content = 'VISTA/nueva-reserva.php';
+        $formatoFechaInvalido = true;
+    } else if(reservaExistente($fecha, $hora, $mesa)){
         $content = 'VISTA/nueva-reserva.php';
         $reservaOcupada = true;
     } else if(reservaInvalida($fecha ,$hora)) {
@@ -169,6 +173,10 @@ if(isset($_POST['cancelada-empleado'])){
 if(isset($_POST['filtrar'])){
     $fechaFiltrar = $_POST['fechaFiltrar'];
     $reservas = filtrarReservas($fechaFiltrar);
+    if(empty($reservas)){
+        $reservas = todasReservasActivas();
+        $noHayReservasFiltro = true;
+    }
     $header = 'VISTA/headerEmployee.php';
     $content = 'VISTA/gestion.php';
 }

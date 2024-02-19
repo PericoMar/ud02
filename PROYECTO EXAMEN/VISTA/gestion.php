@@ -6,6 +6,13 @@ if ($reservas) {
             <form action="index.php" method=post class=filtro>
                 <input name=fechaFiltrar type="date">
                 <input type="hidden" name="user" value=<?php echo $user ?>>
+                <?php
+                    if(isset($noHayReservasFiltro)){
+                        ?>
+                        <p>No hay reservas en esa fecha.</p>
+                        <?php
+                    }
+                ?>
                 <button name=filtrar >Filtrar</button>
             </form>
         </div>
