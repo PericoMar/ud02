@@ -218,3 +218,13 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+.contenedor-filtro {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.filtro {
+    margin-left: auto;
+    width: 200px;
+}

@@ -166,4 +166,9 @@ if(isset($_POST['cancelada-empleado'])){
     $content = 'VISTA/gestion.php';
 }
 
+if(isset($_POST['filtrar'])){
+    $fechaFiltrar = $_POST['fechaFiltrar'];
+    $reservas = filtrarReservas($fecha);
+}
+
 include('VISTA/LAYOUT/layout.php');

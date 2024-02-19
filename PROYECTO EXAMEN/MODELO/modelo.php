@@ -109,3 +109,10 @@ function todasReservasActivas()
     $result = $conn->query($query);
     return $result->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function filtrarReservas($fecha){
+    global $conn;
+    $query = "SELECT client_email, date, time, table_number,description FROM BOOKING WHERE date = '$fecha';";
+    $result = $conn->query($query);
+    return $result->fetchAll(PDO::FETCH_ASSOC);
+}
