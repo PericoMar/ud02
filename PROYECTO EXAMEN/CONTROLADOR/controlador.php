@@ -2,6 +2,7 @@
 
 include_once('MODELO/modelo.php');
 include_once('MODELO/Usuario.php');
+include_once('MODELO/Reserva.php');
 
 $header = 'VISTA/headerInicio.php';
 $content = 'VISTA/inicio.php';
@@ -41,67 +42,98 @@ if(isset($_GET['register'])){
 // Comprobación de los datos de inicio de sesión o registro:
 if (isset($_POST['loged'])) {
     if (isset($_POST['register'])) {
-        if (Usuario::existe($email)) {
+        $email = $_POST['email']; // Suponiendo que obtienes el email y la contraseña del formulario
+        $pass = $_POST['password'];
+        $conn = obtenerConexion(); // Función para obtener la conexión a la base de datos
+
+        
+        if (Usuario::existeUsuario($email, $conn)) {
             $content = 'VISTA/register.php';
         } else {
-            Usuario::crear($email, $pass);
+            $usuario = new Usuario($email, $pass, $conn);
+            $usuario->crearUsuario();
             $header = 'VISTA/headerLoged.php';
             $content = 'VISTA/welcome.php';
         }
     } else {
-        if (Usuario::validarCredenciales($email, $pass)) {
+        $email = $_POST['email']; // Suponiendo que obtienes el email y la contraseña del formulario
+        $pass = $_POST['password'];
+        $conn = obtenerConexion(); // Función para obtener la conexión a la base de datos
+
+        if (Usuario::validarCredenciales($email, $pass, $conn)) {
             $header = 'VISTA/headerLoged.php';
             $content = 'VISTA/welcome.php';
         } else {
-            $mensaje = Usuario::existe($email) ? 'Contraseña incorrecta' : 'No hay ninguna cuenta con este email';
+            $usuario = new Usuario($email, $pass, $conn);
+            $mensaje = $usuario->existeUsuario() ? 'Contraseña incorrecta' : 'No hay ninguna cuenta con este email';
             $content = 'VISTA/loginCliente.php';
         }
     }
 }
 
-if(isset($_GET['welcome'])){
+if (isset($_GET['welcome'])) {
     $header = 'VISTA/headerLoged.php';
     $content = 'VISTA/welcome.php';
 }
 
-if(isset($_POST['gestionar']) || isset($_GET['gestionar'])){
-    $reservasActivas = reservasActivas($email);
+if (isset($_POST['gestionar']) || isset($_GET['gestionar'])) {
+    $conn = obtenerConexion(); // Función para obtener la conexión a la base de datos
+
+    $reservasActivas = Reserva::obtenerReservasActivas($email, $conn);
     $header = 'VISTA/headerLoged.php';
     $content = 'VISTA/gestionar.php';
 }
 
-if(isset($_POST['nueva-reserva']) || isset($_GET['nueva-reserva'])){
+if (isset($_POST['nueva-reserva']) || isset($_GET['nueva-reserva'])) {
     $header = 'VISTA/headerLoged.php';
     $content = 'VISTA/nueva-reserva.php';
 }
 
-if(isset($_POST['historico']) || isset($_GET['historico'])){
-    $reservasPasadas = reservasPasadas($email);
+if (isset($_POST['historico']) || isset($_GET['historico'])) {
+    $conn = obtenerConexion(); // Función para obtener la conexión a la base de datos
+
+    $reservasPasadas = Reserva::obtenerReservasPasadas($email, $conn);
     $header = 'VISTA/headerLoged.php';
     $content = 'VISTA/historico.php';
 }
 
-if(isset($_POST['reserva-hecha'])){
-    $fecha = $_POST['fecha']; 
+if (isset($_POST['reserva-hecha'])) {
+    $fecha = $_POST['fecha'];
     $hora = $_POST['hora'];
     $mesa = $_POST['mesa'];
     $desc = $_POST['desc'];
-    $header = 'VISTA/headerLoged.php';
-    if(preg_match('/\b\d{5,}\b/', $fecha)){
+    $conn = obtenerConexion(); // Función para obtener la conexión a la base de datos
+
+    $reserva = new Reserva($fecha, $hora, $mesa, $desc, $email, $conn);
+    if (preg_match('/\b\d{5,}\b/', $fecha)) {
         $content = 'VISTA/nueva-reserva.php';
         $formatoFechaInvalido = true;
-    } else if(reservaExistente($fecha, $hora, $mesa)){
+    } else if ($reserva->reservaExistente()) {
         $content = 'VISTA/nueva-reserva.php';
         $reservaOcupada = true;
-    } else if(reservaInvalida($fecha ,$hora)) {
+    } else if ($reserva->reservaInvalida()) {
         $content = 'VISTA/nueva-reserva.php';
         $reservaInvalida = true;
     } else {
-        nuevaReserva($fecha, $hora, $mesa, $desc, $email);
+        $reserva->guardar();
         $content = 'VISTA/welcome.php';
         $reservaHecha = true;
     }
 }
+
+if (isset($_POST['cancelar'])) {
+    $fecha = $_POST['fecha'];
+    $hora = $_POST['hora'];
+    $mesa = $_POST['mesa'];
+    $conn = obtenerConexion(); // Función para obtener la conexión a la base de datos
+
+    $reserva = new Reserva($fecha, $hora, $mesa, '', $email, $conn);
+    $reserva->cancelarReserva();
+    $reservasActivas = Reserva::obtenerReservasActivas($email, $conn);
+    $header = 'VISTA/headerLoged.php';
+    $content = 'VISTA/gestionar.php';
+}
+
 
 if(isset($_POST['cancelar'])){
     $fecha = $_POST['fecha']; 
@@ -152,7 +184,7 @@ if(isset($_POST['new-user-created'])){
 }
 
 if(isset($_POST['gestion']) || isset($_GET['gestion'])){
-    $reservas = todasReservasActivas();
+    $reservas = Reserva::obtenerTodasReservasActivas();
     $header = 'VISTA/headerEmployee.php';
     $content = 'VISTA/gestion.php';
 }

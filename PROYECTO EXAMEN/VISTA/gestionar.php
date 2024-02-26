@@ -1,7 +1,7 @@
 <?php
 if ($reservasActivas) {
     ?>
-    
+    <div>
         <table>
             <thead>
                 <tr>
@@ -50,7 +50,14 @@ if ($reservasActivas) {
                 ?>
             </tbody>
         </table>
-    
+        <div class="btns-href">
+            <form action="index.php" method=post>
+                <input type="hidden" value=<?php echo $email ?> name=email>
+                <button name="historico">Historial de reservas</button>
+                <button name="nueva-reserva">Nueva reserva</button>
+            </form>
+        </div>
+        </div>
     <?php
 } else {
     ?>

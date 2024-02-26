@@ -124,6 +124,12 @@ form small{
     margin-bottom: 6px;
 }
 
+div.btns-href{
+    display: flex;
+    justify-content: center;
+    margin: 4px;
+}
+
 div.container-btns{
     display:flex;
     justify-content: space-around;

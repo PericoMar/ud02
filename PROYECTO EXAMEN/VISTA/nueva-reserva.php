@@ -1,7 +1,7 @@
 <form action="index.php" method=post>
     <h1>Nueva reserva</h1>
     <label for="fecha">Fecha:</label>
-    <input type="date" name=fecha min="<?php echo date('Y-m-d'); ?>">
+    <input type="date" name=fecha min="<?php echo date('Y-m-d'); ?>" max="31-12-9999">
     <label for="hora">Hora:</label>
     <select name="hora" id="hora">
         <option value="20:30">20:30</option>
