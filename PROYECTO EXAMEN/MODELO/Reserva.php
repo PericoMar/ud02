@@ -39,10 +39,16 @@ class Reserva {
         return $reservaDateTime < $now;
     }
 
-    public function cancelarReserva() {
+    public function cancelaReserva() {
         $query = "DELETE FROM BOOKING WHERE date = ? AND time = ? AND table_number = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([$this->fecha, $this->hora, $this->mesa]);
+    }
+
+    public static function cancelarReserva($fecha, $hora, $mesa, $conn){
+        $query = "DELETE FROM BOOKING WHERE date = ? AND time = ? AND table_number = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->execute([$fecha, $hora, $mesa]);
     }
 
     public static function obtenerTodasReservasActivas($conn) {
@@ -71,6 +77,12 @@ class Reserva {
         $stmt = $conn->prepare($query);
         $stmt->execute([$email]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function reservasFiltradas($fecha, $conn){
+        $query = "SELECT client_email, date, time, table_number,description FROM BOOKING WHERE date = '$fecha';";
+        $result = $conn->query($query);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getFecha() {

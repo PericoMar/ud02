@@ -1,7 +1,9 @@
 <?php
 
 
-
+include_once('MODELO/Usuario.php');
+include_once('MODELO/Reserva.php');
+include_once('MODELO/Empleado.php');
 function obtenerConexion() {
     include_once('config.php');
     try {
@@ -100,32 +102,24 @@ function obtenerConexion() {
 //     return $result->fetchAll(PDO::FETCH_ASSOC);
 // }
 
-function createEmployeeUser($user,$pass)
-{
-    global $conn;
-    $query = "INSERT INTO employee (username, password)
-    VALUES ('$user','$pass');";
-    $conn->query($query);
-}
+// function createEmployeeUser($user,$pass)
+// {
+//     global $conn;
+//     $query = "INSERT INTO employee (username, password)
+//     VALUES ('$user','$pass');";
+//     $conn->query($query);
+// }
 
-function employeeExists($user){
-    global $conn;
-    $query = "SELECT username FROM EMPLOYEE WHERE username = '$user';";
-    $result = $conn->query($query);
-    return $result->fetch(PDO::FETCH_ASSOC); 
-}
+// function employeeExists($user){
+//     global $conn;
+//     $query = "SELECT username FROM EMPLOYEE WHERE username = '$user';";
+//     $result = $conn->query($query);
+//     return $result->fetch(PDO::FETCH_ASSOC); 
+// }
 
-function todasReservasActivas()
-{
-    global $conn;
-    $query = "SELECT client_email, date, time, table_number,description FROM BOOKING;";
-    $result = $conn->query($query);
-    return $result->fetchAll(PDO::FETCH_ASSOC);
-}
-
-function filtrarReservas($fecha){
-    global $conn;
-    $query = "SELECT client_email, date, time, table_number,description FROM BOOKING WHERE date = '$fecha';";
-    $result = $conn->query($query);
-    return $result->fetchAll(PDO::FETCH_ASSOC);
-}
+// function credencialesEmpleadoValidas(){
+//     global $conn;
+//     $query = "SELECT email FROM EMPLOYEE WHERE email = '$email' AND password = '$pass';";
+//     $result = $conn->query($query);
+//     return $result->fetch(PDO::FETCH_ASSOC);
+// }

@@ -2,9 +2,9 @@
 if ($reservas) {
     ?>
     <div>
-        <div class="contenedor-filtro">
+    <div class="contenedor-filtro">
             <form action="index.php" method=post class=filtro>
-                <input name=fechaFiltrar type="date">
+            <input name="fechaFiltrar" type="date" value="<?php echo date('Y-m-d'); ?>">
                 <input type="hidden" name="user" value=<?php echo $user ?>>
                 <?php
                     if(isset($noHayReservasFiltro)){
@@ -14,6 +14,7 @@ if ($reservas) {
                     }
                 ?>
                 <button name=filtrar >Filtrar</button>
+                <button name=quitar-filtro>Quitar filtro</button>
             </form>
         </div>
         <table>
@@ -75,6 +76,7 @@ if ($reservas) {
         <h1>No hay reservas aún.</h1>
         <input type="hidden" name="user" value=<?php echo $user ?>>
         <button name="empleado-loged">Atras</button>
+        <button name=quitar-filtro>Quitar filtro</button>
     </form>
     <?php
 }
