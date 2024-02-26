@@ -1,6 +1,7 @@
 <?php
 
 include_once('MODELO/modelo.php');
+include_once('MODELO/Usuario.php');
 
 $header = 'VISTA/headerInicio.php';
 $content = 'VISTA/inicio.php';
@@ -38,24 +39,21 @@ if(isset($_GET['register'])){
 }
 
 // Comprobación de los datos de inicio de sesión o registro:
-if(isset($_POST['loged'])){
-    // Si es un nuevo registro entra directamente:
-    if(isset($_POST['register'])){
-        if(userExists($email)){
+if (isset($_POST['loged'])) {
+    if (isset($_POST['register'])) {
+        if (Usuario::existe($email)) {
             $content = 'VISTA/register.php';
         } else {
-            // Si no existe el usuario le creamos la cuenta:
-            createUser($email,$pass);
+            Usuario::crear($email, $pass);
             $header = 'VISTA/headerLoged.php';
             $content = 'VISTA/welcome.php';
         }
     } else {
-        // Si no se comprueban los credenciales:
-        if(userExists($email) && passwdMatch($email , $pass)){
+        if (Usuario::validarCredenciales($email, $pass)) {
             $header = 'VISTA/headerLoged.php';
             $content = 'VISTA/welcome.php';
         } else {
-            $mensaje =userExists($email) ? 'Contraseña incorrecta' : 'No hay ninguna cuenta con este email';
+            $mensaje = Usuario::existe($email) ? 'Contraseña incorrecta' : 'No hay ninguna cuenta con este email';
             $content = 'VISTA/loginCliente.php';
         }
     }
@@ -85,7 +83,6 @@ if(isset($_POST['historico']) || isset($_GET['historico'])){
 
 if(isset($_POST['reserva-hecha'])){
     $fecha = $_POST['fecha']; 
-    
     $hora = $_POST['hora'];
     $mesa = $_POST['mesa'];
     $desc = $_POST['desc'];
