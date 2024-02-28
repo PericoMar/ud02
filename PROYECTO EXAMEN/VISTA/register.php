@@ -6,6 +6,7 @@
     <input type="password" name=password required>
     <input type="hidden" name=register>
     <?php
+    //Si ya esta seteado el email es que viene de intentar registrarse pero el usuario ya existia.
         if(isset($email)){
             ?>
             <small>Ya existe una cuenta con este correo</small>
