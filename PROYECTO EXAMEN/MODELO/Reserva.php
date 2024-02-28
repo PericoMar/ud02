@@ -51,7 +51,7 @@ class Reserva {
         $stmt->execute([$fecha, $hora, $mesa]);
     }
 
-    public static function obtenerTodasReservasActivas($conn) {
+    public static function obtenerTodasLasReservas($conn) {
         $query = "SELECT client_email, date, time, table_number, description 
                   FROM BOOKING";
         $stmt = $conn->query($query);

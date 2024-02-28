@@ -194,7 +194,7 @@ if(isset($_POST['new-user-created'])){
 if(isset($_POST['gestion']) || isset($_GET['gestion'])){
     $conn = obtenerConexion(); // Función para obtener la conexión a la base de datos.
     // Se recogen todas las reservas activas que haya dentro de la bbdd.
-    $reservas = Reserva::obtenerTodasReservasActivas($conn);
+    $reservas = Reserva::obtenerTodasLasReservas($conn);
     $header = 'VISTA/headerEmployee.php';
     $content = 'VISTA/gestion.php';
 }
@@ -206,7 +206,7 @@ if(isset($_POST['cancelada-empleado'])){
     $mesa = $_POST['mesa'];
     $conn = obtenerConexion(); // Función para obtener la conexión a la base de datos.
     Reserva::cancelarReserva($fecha, $hora, $mesa, $conn);
-    $reservas = Reserva::obtenerTodasReservasActivas($conn);
+    $reservas = Reserva::obtenerTodasLasReservas($conn);
     $header = 'VISTA/headerEmployee.php';
     $content = 'VISTA/gestion.php';
 }
@@ -228,7 +228,7 @@ if(isset($_POST['filtrar'])){
 // Si quita el filtro se muestran todas las reservas activas.
 if(isset($_POST['quitar-filtro'])){
     $conn = obtenerConexion();
-    $reservas = Reserva::obtenerTodasReservasActivas($conn);
+    $reservas = Reserva::obtenerTodasLasReservas($conn);
     $header = 'VISTA/headerEmployee.php';
     $content = 'VISTA/gestion.php';
 }
