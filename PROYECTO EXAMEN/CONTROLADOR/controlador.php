@@ -155,7 +155,7 @@ if(isset($_GET['user'])){
 
 // Se hace la comprobacion de que el usuario y contraseña coincidan con alguno en la bbdd sino se vuelve
 // a la pagina de inicio con un mensaje.
-if(isset($_POST['empleado-loged']) || isset($_GET['empleado-loged'])){
+if(isset($_POST['empleado-loged'])){
     $pass = $_POST['password'];
     $conn = obtenerConexion(); // Función para obtener la conexión a la base de datos.
     if(Empleado::employeeExists($user, $conn) && Empleado::credencialesEmpleadoValidas($user, $pass, $conn)){
@@ -165,6 +165,11 @@ if(isset($_POST['empleado-loged']) || isset($_GET['empleado-loged'])){
         $content = 'VISTA/loginEmpleado.php';
         $credencialesIncorrectas = true;
     }
+}
+
+if(isset($_GET['empleado-loged'])){
+    $header = 'VISTA/headerEmployee.php';
+    $content = 'VISTA/empleadoLoged.php';
 }
 
 // Se redirige a la pagina de crear nuevo usuario.
